@@ -3,7 +3,7 @@
 import django.contrib.gis.db.models.fields
 from django.db import migrations, models
 import django.db.models.deletion
-import django_dag.models
+import django_poly_dag.models
 
 
 class Migration(migrations.Migration):
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 'abstract': False,
                 'base_manager_name': 'objects',
             },
-            bases=(models.Model, django_dag.models.NodeBase),
+            bases=(models.Model, django_poly_dag.models.NodeBase),
         ),
         migrations.CreateModel(
             name='WorldBorder',

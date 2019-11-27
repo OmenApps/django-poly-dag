@@ -35,8 +35,7 @@ USE_I18N = True
 USE_L10N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
-# https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
-LOCALE_PATHS = [ROOT_DIR.path("locale")]
+
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -49,7 +48,7 @@ DATABASES = {
         "NAME": "watervize_poly_dag",
         "USER": "watervize_poly_dag_user",
         "PASSWORD": env("DATABASE_PASS", default="gds56fy32r5d36rf3dr2f56f33g26"),
-        "HOST": "localhost",  # Or an IP Address that your DB is hosted on
+        "HOST": "localhost",
         "PORT": "5432",
         "ATOMIC_REQUESTS": True,
         "AUTOCOMMIT": True,
@@ -83,7 +82,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",
-    "django_dag",
+    "django_poly_dag",
 ]
 
 LOCAL_APPS = [
@@ -140,7 +139,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

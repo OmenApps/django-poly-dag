@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from polymorphic.models import PolymorphicModel
-from django_dag.models import node_factory, edge_factory
+from django_poly_dag.models import node_factory, edge_factory
 
 
 class WorldBorder(models.Model):

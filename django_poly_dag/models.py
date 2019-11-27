@@ -8,6 +8,7 @@ Some ideas stolen from: from https://github.com/stdbrouw/django-treebeard-dag
 
 from django.db import models
 from django.core.exceptions import ValidationError
+from polymorphic.utils import get_base_polymorphic_model
 
 
 class NodeNotReachableException (Exception):

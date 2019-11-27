@@ -6,9 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django-polymorphic = "*"
-django-poly-dag = {file = "https://github.com/OmenApps/django-poly-dag/zipball/master"}
-cookiecutter = "*"
 environ = "*"
 pytz = "==2019.3"
 python-slugify = "==4.0.0"
@@ -41,6 +38,8 @@ pytest-django = "==3.7.0"
 Werkzeug = "==0.14.1"
 Sphinx = "==2.2.1"
 django_coverage_plugin = "==1.6.0"
+django-polymorphic = "*"
+django-poly-dag = {file = "https://github.com/OmenApps/django-poly-dag/zipball/master"}
 
 [requires]
 python_version = "3.7"
