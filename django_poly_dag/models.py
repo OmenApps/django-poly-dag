@@ -62,9 +62,11 @@ class NodeBase(object):
 
     def parents(self):
         """
-        Returns all elements which have 'self' as a direct descendant
+        Returns all elements of the base class which have 'self' as a direct descendant
+        Ensures we get parents that may be a different subclass of the base polymorphic model
         """
-        return self.__class__.objects.filter(children = self)
+        base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
+        return base_class.objects.non_polymorphic().filter(children=self)
 
     def descendants_tree(self):
         """
