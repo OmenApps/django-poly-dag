@@ -1,0 +1,46 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django-polymorphic = "*"
+django-poly-dag = {file = "https://github.com/OmenApps/django-poly-dag/zipball/master"}
+cookiecutter = "*"
+environ = "*"
+pytz = "==2019.3"
+python-slugify = "==4.0.0"
+argon2-cffi = "==19.2.0"
+whitenoise = "==4.1.4"
+redis = "==3.3.11"
+django-environ = "==0.4.5"
+django-model-utils = "==3.2.0"
+django-allauth = "==0.40.0"
+django-crispy-forms = "==1.8.1"
+django-redis = "==4.10.0"
+djangorestframework = "==3.10.3"
+coreapi = "==2.3.3"
+Django = "==2.2.7"
+Pillow = "==6.2.1"
+ipdb = "==0.12.2"
+psycopg2-binary = "==2.8.4"
+mypy = "==0.740"
+pytest = "==5.3.0"
+pytest-sugar = "==0.9.2"
+flake8 = "==3.7.8"
+coverage = "==4.5.4"
+black = "==19.10b0"
+pylint-django = "==2.0.13"
+pre-commit = "==1.20.0"
+factory-boy = "==2.12.0"
+django-debug-toolbar = "==2.1"
+django-extensions = "==2.2.5"
+pytest-django = "==3.7.0"
+Werkzeug = "==0.14.1"
+Sphinx = "==2.2.1"
+django_coverage_plugin = "==1.6.0"
+
+[requires]
+python_version = "3.7"
