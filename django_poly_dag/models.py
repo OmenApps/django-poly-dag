@@ -133,8 +133,8 @@ class NodeBase(object):
                 if not ids_only:
                     res.add((self, f))
                 else:
-                    res.add((self.id, f.id))
-                res.update(f.descendants_edges_set(cached_results=cached_results))
+                    res.add((str(self.id), str(f.id)))
+                res.update(f.descendants_edges_set(cached_results=cached_results, ids_only=ids_only))
             cached_results[self] = res
             return res
 
@@ -152,8 +152,8 @@ class NodeBase(object):
                 if not ids_only:
                     res.add((f, self))
                 else:
-                    res.add((f.id, self.id))
-                res.update(f.ancestors_edges_set(cached_results=cached_results))
+                    res.add((str(f.id), str(self.id)))
+                res.update(f.ancestors_edges_set(cached_results=cached_results, ids_only=ids_only))
             cached_results[self] = res
             return res
 
