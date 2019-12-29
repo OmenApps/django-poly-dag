@@ -163,7 +163,7 @@ class NodeBase(object):
             return nodes
         # Return a queryset of objects, using the base node class
         base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
-        return base_class.objects.non_polymorphic().filter(pk__in=[x.pk for x in nodes])
+        return base_class.objects.non_polymorphic().filter(id__in=[x.id for x in nodes])
 
     def edges_set(self, qs=False):
         """
@@ -176,7 +176,7 @@ class NodeBase(object):
             return edges
         # Return a queryset of objects, using the base edge class
         base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
-        return base_class.objects.non_polymorphic().filter(pk__in=[x.pk for x in edges])
+        return base_class.objects.non_polymorphic().filter(id__in=[x.id for x in edges])
 
     def distance(self, target):
         """
