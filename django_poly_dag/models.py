@@ -6,8 +6,12 @@ Some ideas stolen from: from https://github.com/stdbrouw/django-treebeard-dag
 
 """
 
-from django.db import models
+import json
+import datetime
+import uuid
+from django.core import serializers
 from django.core.exceptions import ValidationError
+from django.db import models
 from polymorphic.utils import get_base_polymorphic_model
 
 
@@ -179,6 +183,29 @@ class NodeBase(object):
         edges.update(self.descendants_edges_set(ids_only=ids_only))
         edges.update(self.ancestors_edges_set(ids_only=ids_only))
         return edges
+
+    def full_tree(self):
+        """
+        Returns a json object with the the full serialized object for each node and all 
+        pair of edges for the tree containing this node.
+        """
+        nodes_set_qs = self.nodes_set(qs=True)
+        edges_set_ids = self.edges_set(ids_only=True)
+
+        nodes_full = list(nodes_set_qs.values())
+        for node in nodes_full:
+            for key, value in node.items():
+                # if the type is not json serializable, convert to string
+                if type(value) is uuid.UUID or type(value) is datetime.datetime:
+                    node[key] = str(node[key])
+
+        edges_list_ids = list(list(s) for s in edges_set_ids)
+
+        output = dict()
+        output['nodes'] = nodes_full
+        output['edges'] = edges_list_ids
+
+        return json.dumps(output,)
 
     def distance(self, target):
         """
