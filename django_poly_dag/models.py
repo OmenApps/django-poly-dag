@@ -151,24 +151,32 @@ class NodeBase(object):
             cached_results[self] = res
             return res
 
-    def nodes_set(self):
+    def nodes_set(self, qs=False):
         """
-        Retrun a set of all nodes
+        Return a set of all nodes, optionally converting to a queryset.
         """
         nodes = set()
         nodes.add(self)
         nodes.update(self.ancestors_set())
         nodes.update(self.descendants_set())
-        return nodes
+        if not qs:
+            return nodes
+        # Return a queryset of objects, using the base node class
+        base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
+        return base_class.objects.non_polymorphic().filter(pk__in=[x.pk for x in nodes])
 
-    def edges_set(self):
+    def edges_set(self, qs=False):
         """
-        Returns a set of all edges
+        Returns a set of all edges, optionally converting to a queryset.
         """
         edges = set()
         edges.update(self.descendants_edges_set())
         edges.update(self.ancestors_edges_set())
-        return edges
+        if not qs:
+            return edges
+        # Return a queryset of objects, using the base edge class
+        base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
+        return base_class.objects.non_polymorphic().filter(pk__in=[x.pk for x in edges])
 
     def distance(self, target):
         """
