@@ -119,7 +119,7 @@ class NodeBase(object):
             cached_results[self] = res
             return res
 
-    def descendants_edges_set(self, cached_results=None):
+    def descendants_edges_set(self, cached_results=None, ids_only=False):
         """
         Returns a set of descendants edges
         """
@@ -130,12 +130,15 @@ class NodeBase(object):
         else:
             res = set()
             for f in self.children.all():
-                res.add((self, f))
+                if not ids_only:
+                    res.add((self, f))
+                else:
+                    res.add((self.id, f.id))
                 res.update(f.descendants_edges_set(cached_results=cached_results))
             cached_results[self] = res
             return res
 
-    def ancestors_edges_set(self, cached_results=None):
+    def ancestors_edges_set(self, cached_results=None, ids_only=False):
         """
         Returns a set of ancestors edges
         """
@@ -146,7 +149,10 @@ class NodeBase(object):
         else:
             res = set()
             for f in self.parents():
-                res.add((f, self))
+                if not ids_only:
+                    res.add((f, self))
+                else:
+                    res.add((f.id, self.id))
                 res.update(f.ancestors_edges_set(cached_results=cached_results))
             cached_results[self] = res
             return res
@@ -165,18 +171,14 @@ class NodeBase(object):
         base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
         return base_class.objects.non_polymorphic().filter(id__in=[x.id for x in nodes])
 
-    def edges_set(self, qs=False):
+    def edges_set(self, ids_only=False):
         """
-        Returns a set of all edges, optionally converting to a queryset.
+        Returns a set of all edges, optionally returning a tuple of node id tuples.
         """
         edges = set()
-        edges.update(self.descendants_edges_set())
-        edges.update(self.ancestors_edges_set())
-        if not qs:
-            return edges
-        # Return a queryset of objects, using the base edge class
-        base_class = get_base_polymorphic_model(self.__class__, allow_abstract=False)
-        return base_class.objects.non_polymorphic().filter(id__in=[x.id for x in edges])
+        edges.update(self.descendants_edges_set(ids_only=ids_only))
+        edges.update(self.ancestors_edges_set(ids_only=ids_only))
+        return edges
 
     def distance(self, target):
         """
