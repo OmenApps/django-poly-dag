@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-from django.db.models import CharField
+from django.db.models import CharField, Manager
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,6 +32,11 @@ class WorldBorder(models.Model):
 
 class BaseGeoNode(PolymorphicModel, node_factory('BaseGeoEdge')):
     name = models.CharField(max_length = 32)
+
+    @property
+    def list_parents(self):
+        output = [item.id for item in self.parents()]
+        return output
 
     def __str__(self):
         return self.name
